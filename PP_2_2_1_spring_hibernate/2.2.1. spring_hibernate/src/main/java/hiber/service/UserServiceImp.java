@@ -18,8 +18,6 @@ import java.util.List;
 public class UserServiceImp implements UserService {
 
    @Autowired
-   private SessionFactory sessionFactory;
-   @Autowired
    private UserDao userDao;
 
    @Transactional
@@ -44,18 +42,5 @@ public class UserServiceImp implements UserService {
    @Override
    public List<Car> listCars() {
       return userDao.listCars();
-   }
-
-   @Transactional
-   @Override
-   public List<User> getOwner(String model, int series) {
-      Session session = sessionFactory.getCurrentSession();
-      Query<User> query = session.createQuery(
-              "SELECT u FROM User u JOIN FETCH u.car c WHERE c.model = :model AND c.series = :series",
-              User.class
-      );
-      query.setParameter("model", model);
-      query.setParameter("series", series);
-      return query.list();
    }
 }

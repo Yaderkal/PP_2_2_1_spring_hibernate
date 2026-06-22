@@ -10,4 +10,5 @@ public interface UserDao {
    void add(Car car);
    List<User> listUsers();
    List<Car> listCars();
+   List<User> getOwner(String model, int series);
 }
